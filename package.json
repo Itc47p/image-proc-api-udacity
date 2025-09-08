@@ -15,6 +15,9 @@
         "url": "git+https://github.com/Itc47p/image-proc-api-udacity.git"
     },
     "keywords": [],
+    "devDependencies": {
+        "npm-watch": "^0.13.0"
+    },
     "license": "ISC",
     "bugs": {
         "url": "https://github.com/Itc47p/image-proc-api-udacity/issues"
