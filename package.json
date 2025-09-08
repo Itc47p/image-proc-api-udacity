@@ -16,7 +16,8 @@
     },
     "keywords": [],
     "devDependencies": {
-        "npm-watch": "^0.13.0"
+        "@types/node": "^24.3.1",
+        "ts-node": "^10.9.2"
     },
     "license": "ISC",
     "bugs": {
@@ -24,10 +25,7 @@
     },
     "homepage": "https://github.com/Itc47p/image-proc-api-udacity#readme",
     "dependencies": {
+        "express": "^5.1.0",
         "typescript": "^5.9.2"
-    },
-    "devDependencies": {
-        "@types/node": "^24.3.1",
-        "ts-node": "^10.9.2"
     }
 }
