@@ -1,0 +1,30 @@
+{
+    "name": "harrington-image-processor",
+    "version": "1.0.0",
+    "description": "A Node.js package for image processing using the Harrington algorithm.",
+    "author": "Itc47p",
+    "type": "commonjs",
+    "main": "index.ts",
+    "scripts": {
+        "test": "jest",
+        "build": "npx tsc",
+        "build-watch": "npm-watch"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Itc47p/image-proc-api-udacity.git"
+    },
+    "keywords": [],
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Itc47p/image-proc-api-udacity/issues"
+    },
+    "homepage": "https://github.com/Itc47p/image-proc-api-udacity#readme",
+    "dependencies": {
+        "typescript": "^5.9.2"
+    },
+    "devDependencies": {
+        "@types/node": "^24.3.1",
+        "ts-node": "^10.9.2"
+    }
+}
