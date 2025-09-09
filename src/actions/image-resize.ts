@@ -1,2 +1,3 @@
 import fs from 'fs';
-import sharp from 'sharp';
+
+const x: string = 'new';
