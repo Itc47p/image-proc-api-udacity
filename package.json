@@ -7,8 +7,7 @@
     "main": "index.ts",
     "scripts": {
         "build": "npx tsc",
-        "start": "nodemon src/index.ts"
-    },
+        "start": "nodemon --exec ts-node build/index.js"    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/Itc47p/image-proc-api-udacity.git"
