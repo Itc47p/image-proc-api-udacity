@@ -3,12 +3,11 @@
     "version": "1.0.0",
     "description": "A Node.js package for image processing using the Harrington algorithm.",
     "author": "Itc47p",
-    "type": "commonjs",
+    "type": "module",
     "main": "index.ts",
     "scripts": {
-        "test": "jest",
         "build": "npx tsc",
-        "build-watch": "npm-watch"
+        "start": "nodemon src/index.ts"
     },
     "repository": {
         "type": "git",
@@ -16,8 +15,20 @@
     },
     "keywords": [],
     "devDependencies": {
+        "@types/express": "^5.0.3",
         "@types/node": "^24.3.1",
+        "nodemon": "^3.0.1",
         "ts-node": "^10.9.2"
+    },
+    "watch": {
+        "build-watch": {
+            "patterns": [
+                "src/**/*.ts"
+            ],
+            "extensions": "ts",
+            "quiet": true,
+            "runOnChangeOnly": true
+        }
     },
     "license": "ISC",
     "bugs": {
@@ -27,5 +38,9 @@
     "dependencies": {
         "express": "^5.1.0",
         "typescript": "^5.9.2"
+    },
+    "engines": {
+        "node": ">=14.0.0",
+        "npm": ">=6.0.0"
     }
 }
