@@ -41,11 +41,12 @@ import fs from "fs";
 var app = express();
 var port = 3000;
 app.use(express.static('images'));
-app.get("/api/filename={}", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+app.get("/api/placeholder", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var width, height, color, imgPLacholder;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                console.log('WHAT IS REQ QUERY', req.query);
                 width = parseInt(req.query.width) || 300;
                 height = parseInt(req.query.height) || 300;
                 color = req.query.color || 'grey';

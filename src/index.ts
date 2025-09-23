@@ -8,6 +8,7 @@ const port = 3000;
 app.use(express.static('images'));
 
 app.get("/api/placeholder", async (req, res) => {
+    // console.log('WHAT IS REQ QUERY', req.query);
     const width = parseInt(req.query.width as string) || 300;
     const height = parseInt(req.query.height as string) || 300;
     const color = req.query.color as string || 'grey';
