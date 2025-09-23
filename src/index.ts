@@ -12,9 +12,9 @@ app.get("/api/placeholder", async (req, res) => {
     const width = parseInt(req.query.width as string) || 300;
     const height = parseInt(req.query.height as string) || 300;
     const color = req.query.color as string || 'grey';
-    const isUpperCase = /^[A-Z]{1,7}$/.test(color)
-    // User should be able to provide upper case or mix case string values for accessibility
-    if (color && isUpperCase) {
+    const isUpperCasedColor = /^[A-Z]{1,7}$/.test(color)
+
+    if (color && isUpperCasedColor) {
         color.toLowerCase()
     }
     const imgPLacholder = await sharp({
@@ -44,6 +44,8 @@ app.get("/api/action/resize", async (req, res) => {
     };
     const inputPath = path.join(__dirname, 'images', fileName);
     const outputPath = path.join(__dirname, 'images', 'resized', `${path.parse(fileName).name}_${widthParam}x${heightParam}${path.parse(fileName).ext}`);
+    console.log("INPUT PATH:", inputPath);
+    console.log("OUTPUT PATH:", outputPath);
 
     if (!fs.existsSync(inputPath)) {
         return res.status(404).send('File not found');
