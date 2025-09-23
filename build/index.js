@@ -40,7 +40,8 @@ import path from "path";
 import fs from "fs";
 var app = express();
 var port = 3000;
-app.get("/api/placeholder", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+app.use(express.static('images'));
+app.get("/api/filename={}", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var width, height, color, imgPLacholder;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -48,11 +49,10 @@ app.get("/api/placeholder", function (req, res) { return __awaiter(void 0, void 
                 width = parseInt(req.query.width) || 300;
                 height = parseInt(req.query.height) || 300;
                 color = req.query.color || 'grey';
-                res.send('Server Online');
                 return [4 /*yield*/, sharp({
                         create: {
-                            width: 300,
-                            height: 300,
+                            width: width,
+                            height: height,
                             channels: 4,
                             background: color
                         }
@@ -75,6 +75,8 @@ app.get("/api/action/resize", function (req, res) { return __awaiter(void 0, voi
                 fileName = req.query.fileName;
                 widthParam = parseInt(req.query.width);
                 heightParam = parseInt(req.query.height);
+                console.log("CALLING RESIZE API");
+                console.log("RESIZE PARAMS:", fileName, widthParam, heightParam);
                 if (!fileName || !widthParam || !heightParam) {
                     return [2 /*return*/, res.status(400).send('Missing required query parameters: fileName, width, height')];
                 }

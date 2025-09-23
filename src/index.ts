@@ -5,17 +5,16 @@ import fs from "fs";
 
 const app = express();
 const port = 3000;
+app.use(express.static('images'));
 
 app.get("/api/placeholder", async (req, res) => {
     const width = parseInt(req.query.width as string) || 300;
     const height = parseInt(req.query.height as string) || 300;
     const color = req.query.color as string || 'grey';
-    res.send('Server Online');
-
     const imgPLacholder = await sharp({
         create: {
-            width: 300,
-            height: 300,
+            width: width,
+            height: height,
             channels: 4,
             background: color
         }
@@ -31,6 +30,9 @@ app.get("/api/action/resize", async (req, res) => {
     const fileName = req.query.fileName as string;
     const widthParam = parseInt(req.query.width as string);
     const heightParam = parseInt(req.query.height as string);
+
+    console.log("CALLING RESIZE API");
+    console.log("RESIZE PARAMS:", fileName, widthParam, heightParam);
 
     if (!fileName || !widthParam || !heightParam) {
         return res.status(400).send('Missing required query parameters: fileName, width, height');
