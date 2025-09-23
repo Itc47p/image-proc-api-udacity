@@ -8,10 +8,15 @@ const port = 3000;
 app.use(express.static('images'));
 
 app.get("/api/placeholder", async (req, res) => {
-    // console.log('WHAT IS REQ QUERY', req.query);
+    console.log('WHAT IS REQ QUERY', req.query);
     const width = parseInt(req.query.width as string) || 300;
     const height = parseInt(req.query.height as string) || 300;
     const color = req.query.color as string || 'grey';
+    const isUpperCase = /^[A-Z]{1,7}$/.test(color)
+    // User should be able to provide upper case or mix case string values for accessibility
+    if (color && isUpperCase) {
+        color.toLowerCase()
+    }
     const imgPLacholder = await sharp({
         create: {
             width: width,
@@ -32,8 +37,7 @@ app.get("/api/action/resize", async (req, res) => {
     const widthParam = parseInt(req.query.width as string);
     const heightParam = parseInt(req.query.height as string);
 
-    console.log("CALLING RESIZE API");
-    console.log("RESIZE PARAMS:", fileName, widthParam, heightParam);
+    console.log("CALLING RESIZE API W THESE PARAMS:" , fileName, widthParam, heightParam);
 
     if (!fileName || !widthParam || !heightParam) {
         return res.status(400).send('Missing required query parameters: fileName, width, height');
