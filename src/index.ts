@@ -41,28 +41,17 @@ app.get("/api/action/resize", async (req, res) => {
     const widthParam = parseInt(req.query.width as string);
     const heightParam = parseInt(req.query.height as string);
 
-    // console.log("CALLING RESIZE API W THESE PARAMS:", fileName, widthParam, heightParam);
-
     if (!fileName || !widthParam || !heightParam) {
         return res.status(400).send('Missing required query parameters: fileName, width, height');
     }
 
-    const inputPath = path.join(__dirname, 'images', fileName);
-    const outputDir = path.join(__dirname, 'images', 'resized');
+    const projectRoot = path.resolve(__dirname, '..', '..');
+    const inputPath = path.join(projectRoot, 'images', fileName);
+    const outputDir = path.join(projectRoot, 'images', 'resized');
     const outputPath = path.join(outputDir, `${path.parse(fileName).name}_${widthParam}x${heightParam}${path.parse(fileName).ext}`);
-    try {
-        await sharp(inputPath)
-            .resize(widthParam, heightParam)
-            .toFile(outputPath);
-
-        res.sendFile(outputPath);
-    } catch (error) {
-        res.status(500).send('Error processing image');
-    }
-    console.log("INPUT PATH:", inputPath);
-    console.log("OUTPUT PATH:", outputPath);
 
     if (!fs.existsSync(inputPath)) {
+        console.error("File not found:", inputPath);
         return res.status(404).send('File not found');
     }
 
@@ -70,6 +59,7 @@ app.get("/api/action/resize", async (req, res) => {
         fs.mkdirSync(outputDir, { recursive: true });
     }
 
+    // If resized image already exists, send it
     if (fs.existsSync(outputPath)) {
         return res.sendFile(outputPath);
     }
@@ -78,14 +68,17 @@ app.get("/api/action/resize", async (req, res) => {
         await sharp(inputPath)
             .resize(widthParam, heightParam)
             .toFile(outputPath);
-        res.sendFile(outputPath);
+        if(res.statusCode === 200){
+            console.log("Image resized successfully. Can be found here:", outputPath);
+        }
+        return res.sendFile(outputPath);
     } catch (error) {
         console.error("Error processing image:", error);
-        res.status(500).send('Error processing image');
+        return res.status(500).send('Error processing image');
     }
 });
 
 app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+    console.log(`Application is running at http://localhost:${port}`);
 
 });

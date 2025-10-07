@@ -7,8 +7,8 @@
     "main": "index.ts",
     "scripts": {
         "build": "npx tsc",
-        "start": "nodemon --exec ts-node build/index.js",
-        "build:start": "npx tsc && nodemon --exec ts-node build/index.js",
+        "start": "nodemon --exec ts-node build/src/index.js",
+        "build:start": "npx tsc && nodemon --exec ts-node build/src/index.js",
         "lint": "eslint . --ext .ts",
         "lint:fix": "eslint . --ext .ts --fix"
     },
