@@ -10,7 +10,8 @@
         "start": "nodemon --exec ts-node build/src/index.js",
         "build:start": "npx tsc && nodemon --exec ts-node build/src/index.js",
         "lint": "eslint . --ext .ts",
-        "lint:fix": "eslint . --ext .ts --fix"
+        "lint:fix": "eslint . --ext .ts --fix",
+        "test": "jasmine"
     },
     "repository": {
         "type": "git",
@@ -23,8 +24,10 @@
         "@types/jasmine": "^5.1.9",
         "@types/node": "^24.3.1",
         "@types/prettier": "^2.7.3",
+        "@types/supertest": "^6.0.3",
         "jasmine": "^5.12.0",
         "nodemon": "^3.0.1",
+        "supertest": "^7.1.4",
         "ts-node": "^10.9.2"
     },
     "watch": {

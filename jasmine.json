@@ -10,5 +10,6 @@
   "random": false,
   "typescript": {
     "tsconfig": "tsconfig.json"
-  }
+  },
+  "require": "ts-node/register"
 }
