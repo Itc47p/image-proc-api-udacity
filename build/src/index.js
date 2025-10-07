@@ -8,7 +8,6 @@ const app = express();
 const port = 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-console.log(__dirname);
 app.use(express.static('images'));
 app.get("/api/placeholder", async (req, res) => {
     const width = parseInt(req.query.width) || 300;
@@ -58,7 +57,7 @@ app.get("/api/action/resize", async (req, res) => {
             .resize(widthParam, heightParam)
             .toFile(outputPath);
         if (res.statusCode === 200) {
-            console.log("Image resized successfully. Can be found here:", outputPath);
+            console.info("Image resized successfully. Can be found here:", outputPath);
         }
         return res.sendFile(outputPath);
     }
@@ -68,6 +67,6 @@ app.get("/api/action/resize", async (req, res) => {
     }
 });
 app.listen(port, () => {
-    console.log(`Application is running at http://localhost:${port}`);
+    console.info(`Application is running at http://localhost:${port}`);
 });
 //# sourceMappingURL=index.js.map

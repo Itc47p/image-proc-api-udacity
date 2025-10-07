@@ -46,7 +46,6 @@ app.get("/api/placeholder", function (req, res) { return __awaiter(void 0, void 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log('WHAT IS REQ QUERY', req.query);
                 width = parseInt(req.query.width) || 300;
                 height = parseInt(req.query.height) || 300;
                 color = req.query.color || 'grey';
@@ -76,8 +75,6 @@ app.get("/api/action/resize", function (req, res) { return __awaiter(void 0, voi
                 fileName = req.query.fileName;
                 widthParam = parseInt(req.query.width);
                 heightParam = parseInt(req.query.height);
-                console.log("CALLING RESIZE API");
-                console.log("RESIZE PARAMS:", fileName, widthParam, heightParam);
                 if (!fileName || !widthParam || !heightParam) {
                     return [2 /*return*/, res.status(400).send('Missing required query parameters: fileName, width, height')];
                 }
@@ -109,8 +106,6 @@ app.get("/api/action/resize", function (req, res) { return __awaiter(void 0, voi
     });
 }); });
 app.listen(port, function () {
-    console.log("Server is running at http://localhost:".concat(port));
+    console.info("Server is running at http://localhost:".concat(port));
 });
-var Greeting = "Hello User";
-console.log(Greeting);
 //# sourceMappingURL=index.js.map
