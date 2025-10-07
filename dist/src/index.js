@@ -6,8 +6,8 @@ import fs from "fs";
 import { fileURLToPath } from 'url';
 const app = express();
 const port = 3000;
-const _filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(_filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 console.log(__dirname);
 app.use(express.static('images'));
 app.get("/api/placeholder", async (req, res) => {

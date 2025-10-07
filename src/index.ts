@@ -1,5 +1,5 @@
 import express from "express";
-import sharp from "../node_modules/sharp/lib/index";
+import sharp from "sharp";
 import path from "path";
 import { dirname } from 'path';
 import fs from "fs";
@@ -9,7 +9,7 @@ const app = express();
 const port = 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-console.log("DIRNAME:", __dirname);
+console.log(__dirname);
 app.use(express.static('images'));
 
 app.get("/api/placeholder", async (req, res) => {
