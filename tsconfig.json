@@ -6,8 +6,8 @@
     "outDir": "./build",
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
-    "target": "es5",
+    "module": "esnext",
+    "target": "es2023",
     "types": [],
     // For nodejs:
     "lib": ["ES6"],
@@ -27,6 +27,8 @@
     // "noImplicitOverride": true,
     "noImplicitAny": true,
     "skipDefaultLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     // "noUnusedLocals": true,
     // "noUnusedParameters": true,
     // "noFallthroughCasesInSwitch": true,
