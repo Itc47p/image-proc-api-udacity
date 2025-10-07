@@ -1,15 +1,14 @@
-import express from "express";
-import sharp from "sharp";
-import path from "path";
-import { dirname } from 'path';
-import fs from "fs";
+import express from 'express';
+import sharp from 'sharp';
+import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 export const app = express();
 const port = 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static('images'));
-app.get("/api/placeholder", async (req, res) => {
+app.get('/api/placeholder', async (req, res) => {
     const width = parseInt(req.query.width) || 300;
     const height = parseInt(req.query.height) || 300;
     const color = req.query.color || 'grey';
@@ -30,7 +29,7 @@ app.get("/api/placeholder", async (req, res) => {
     res.set('Content-Type', 'image/png');
     res.send(imgPLacholder);
 });
-app.get("/api/action/resize", async (req, res) => {
+app.get('/api/action/resize', async (req, res) => {
     const fileName = req.query.fileName;
     const widthParam = parseInt(req.query.width);
     const heightParam = parseInt(req.query.height);
@@ -42,7 +41,7 @@ app.get("/api/action/resize", async (req, res) => {
     const outputDir = path.join(projectRoot, 'images', 'resized');
     const outputPath = path.join(outputDir, `${path.parse(fileName).name}_${widthParam}x${heightParam}${path.parse(fileName).ext}`);
     if (!fs.existsSync(inputPath)) {
-        console.error("File not found:", inputPath);
+        console.error('File not found:', inputPath);
         return res.status(404).send('File not found');
     }
     if (!fs.existsSync(outputDir)) {
@@ -57,12 +56,12 @@ app.get("/api/action/resize", async (req, res) => {
             .resize(widthParam, heightParam)
             .toFile(outputPath);
         if (res.statusCode === 200) {
-            console.info("Image resized successfully. Can be found here:", outputPath);
+            console.info('Image resized successfully. Can be found here:', outputPath);
         }
         return res.sendFile(outputPath);
     }
     catch (error) {
-        console.error("Error processing image:", error);
+        console.error('Error processing image:', error);
         return res.status(500).send('Error processing image');
     }
 });

@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { app } from "../src/index.js";
+import { app } from '../src/index.js';
 const RESIZE_ENDPOINT = '/api/action/resize';
 describe('get.api/action/resize', () => {
     it('should return 400 for a missing query params', async () => {
