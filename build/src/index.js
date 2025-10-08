@@ -48,7 +48,6 @@ app.get('/api/action/resize', async (req, res) => {
     if (!fs.existsSync(outputDir)) {
         fs.mkdirSync(outputDir, { recursive: true });
     }
-    // If resized image already exists, send it
     if (fs.existsSync(outputPath)) {
         return res.sendFile(outputPath);
     }
