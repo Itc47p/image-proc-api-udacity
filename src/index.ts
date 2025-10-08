@@ -44,7 +44,7 @@ app.get('/api/action/resize', async (req, res) => {
         return res.status(400).send('Missing required query parameters: fileName, width, height');
     }
 
-    const projectRoot = path.resolve(__dirname, '..', '..');
+    const projectRoot = path.resolve(__dirname, '..');
     const inputPath = path.join(projectRoot, 'images', fileName);
     const outputDir = path.join(projectRoot, 'images', 'resized');
     const outputPath = path.join(outputDir, `${path.parse(fileName).name}_${widthParam}x${heightParam}${path.parse(fileName).ext}`);
