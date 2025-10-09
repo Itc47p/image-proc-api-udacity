@@ -1,5 +1,10 @@
 import request from 'supertest';
 import app from '../src/index.js';
+import { ensureDirectoryExists, resizeImage } from '../src/utils.js';
+import fs from 'fs';
+import path from 'path';
+import sharp from 'sharp';
+
 const RESIZE_ENDPOINT = '/api/action/resize';
 describe('get.api/action/resize', () => {
     it('should return 400 for a missing query params', (done) => {
@@ -98,5 +103,66 @@ describe('get.api/placeholder', () => {
                 expect(response.headers['content-type']).toMatch(/image\/png/);
                 done();
             });
+    });
+});
+
+describe('Utils', () => {
+    const testDir = path.join(__dirname, 'test_output');
+    const inputImagePath = path.join(__dirname, 'test_assets', 'test_image.jpg');
+    const outputImagePath = path.join(testDir, 'resized_image.jpg');
+
+    beforeAll(() => {
+        // Ensure test directory exists
+        if (!fs.existsSync(testDir)) {
+            fs.mkdirSync(testDir, { recursive: true });
+        }
+    });
+
+    afterAll(() => {
+        // Clean up test directory
+        if (fs.existsSync(outputImagePath)) {
+            fs.unlinkSync(outputImagePath);
+        }
+        if (fs.existsSync(testDir)) {
+            fs.rmdirSync(testDir, { recursive: true });
+        }
+    });
+
+    describe('resizeImage', () => {
+        it('should resize an image to the specified dimensions', async () => {
+            const width = 200;
+            const height = 200;
+
+            await resizeImage(inputImagePath, outputImagePath, width, height);
+
+            expect(fs.existsSync(outputImagePath)).toBe(true);
+
+            const metadata = await sharp(outputImagePath).metadata();
+            expect(metadata.width).toBe(width);
+            expect(metadata.height).toBe(height);
+        });
+
+        it('should throw an error if the input file does not exist', async () => {
+            const invalidInputPath = path.join(__dirname, 'nonexistent.jpg');
+
+            await expect(resizeImage(invalidInputPath, outputImagePath, 200, 200)).rejects.toThrow();
+        });
+    });
+
+    describe('ensureDirectoryExists', () => {
+        it('should create a directory if it does not exist', () => {
+            const newDirPath = path.join(testDir, 'new_directory');
+
+            ensureDirectoryExists(newDirPath);
+
+            expect(fs.existsSync(newDirPath)).toBe(true);
+
+            // Clean up
+            fs.rmdirSync(newDirPath);
+        });
+
+        it('should not throw an error if the directory already exists', () => {
+            expect(() => ensureDirectoryExists(testDir)).not.toThrow();
+        });
     });
 });
