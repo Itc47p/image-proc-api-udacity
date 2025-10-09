@@ -3,6 +3,7 @@ import sharp from 'sharp';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import { ensureDirectoryExists, resizeImage } from './utils.js';
 
 const app = express();
 export default app;
@@ -54,19 +55,15 @@ app.get('/api/action/resize', async (req, res) => {
         return res.status(404).send('File not found');
     }
 
-    if (!fs.existsSync(outputDir)) {
-        fs.mkdirSync(outputDir, { recursive: true });
-    }
+    ensureDirectoryExists(outputDir);
 
     if (fs.existsSync(outputPath)) {
         return res.sendFile(outputPath);
     }
 
     try {
-        await sharp(inputPath)
-            .resize(widthParam, heightParam)
-            .toFile(outputPath);
-        if(res.statusCode === 200){
+        await resizeImage(inputPath, outputPath, widthParam, heightParam);
+        if (res.statusCode === 200) {
             console.info('Image resized successfully. Can be found here:', outputPath);
         }
         return res.sendFile(outputPath);
